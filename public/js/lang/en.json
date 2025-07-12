@@ -1,0 +1,39 @@
+{
+    "common": {
+        "title": "Manta Cultural Portal",
+        "logo": "Manta Culture",
+        "home": "Home",
+        "tours": "360° Tours",
+        "guia": "Multilingual Guide",
+        "mapa": "Historical Map",
+        "encuesta": "Survey",
+        "welcome": "Welcome to the Manta Cultural Portal",
+        "description": "Explore the cultural and heritage richness of Manta",
+        "guiaTitle": "Multilingual Guide",
+        "mapaTitle": "Historical Map",
+        "encuestaTitle": "Survey Section"
+    },
+    "search": {
+        "emptyQuery": "Please enter a search term",
+        "noResults": "No results found for the search"
+    },
+    "recorridos": {
+        "title": "360° Tours",
+        "loading": "Loading panorama...",
+        "error": "Error loading image",
+        "hotspots": {
+            "1": {
+                "title": "Point of Interest 1",
+                "description": "Description of point 1 in English"
+            },
+            "2": {
+                "title": "Point of Interest 2",
+                "description": "Description of point 2 in English"
+            },
+            "3": {
+                "title": "Point of Interest 3",
+                "description": "Description of point 3 in English"
+            }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "common": {
+        "title": "Portal Cultural de Manta",
+        "logo": "Cultura Manta",
+        "home": "Inicio",
+        "tours": "Recorridos 360°",
+        "guia": "Guía Multilingüe",
+        "mapa": "Mapa Histórico",
+        "encuesta": "Encuesta",
+        "welcome": "Bienvenido al Portal Cultural de Manta",
+        "description": "Explora la riqueza cultural y patrimonial de Manta",
+        "guiaTitle": "Guía Multilingüe",
+        "mapaTitle": "Mapa Histórico Interactivo",
+        "encuestaTitle": "Sección de encuestas"
+    },
+    "search": {
+        "emptyQuery": "Por favor, ingresa un término de búsqueda",
+        "noResults": "No se encontraron resultados para la búsqueda"
+    },
+    "recorridos": {
+        "title": "Recorridos 360°",
+        "loading": "Cargando panorama...",
+        "error": "Error al cargar la imagen",
+        "hotspots": {
+            "1": {
+                "title": "Punto de Interés 1",
+                "description": "Descripción del punto 1 en español"
+            },
+            "2": {
+                "title": "Punto de Interés 2",
+                "description": "Descripción del punto 2 en español"
+            },
+            "3": {
+                "title": "Punto de Interés 3",
+                "description": "Descripción del punto 3 en español"
+            }
+        }
+    }
+}

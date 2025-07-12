@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Portal Cultural de Manta</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Leaflet CSS y JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/OrbitControls.js"></script>
+    <script src="js/services/languageService.js"></script>
+    <script src="js/preview.js"></script>
+    <script type="module" src="/js/main.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <h1 class="logo" id="logo-text">CULTURA MANTA</h1>
+        </div>
+        <nav class="main-nav">
+            <div class="search-container">
+                <div class="search-toggle" id="search-toggle">
+                    <span>Buscar🔍</span>
+                </div>
+                <div class="search-expanded hidden" id="search-expanded">
+                    <form id="search-form" class="search-form" role="search">
+                        <input type="search" id="search-input" placeholder="Buscar...">
+                        <button type="submit">🔍</button>
+                    </form>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" class="active" id="home-link">INICIO</a></li>
+                <li><a href="#" id="tours-link">RECORRIDOS 360°</a></li>
+                <li><a href="#" id="guia-link">GUÍA MULTILINGÜE</a></li>
+                <li><a href="#" id="mapa-link">MAPA HISTÓRICO</a></li>
+                <li><a href="#" id="encuesta-link">ENCUESTA</a></li>
+            </ul>
+        </nav>
+        
+        <nav class="language-selector">
+            <button class="language-button active" data-lang="es" onclick="languageService.setLanguage('es')">ES</button>
+            <button class="language-button" data-lang="en" onclick="languageService.setLanguage('en')">EN</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="module">
+            <h1 id="welcome-text">Bienvenido al Portal Cultural de Manta</h1>
+            <p id="description-text">Explora la riqueza cultural y patrimonial de Manta</p>
+        </section>
+
+        <section id="recorridos" class="module hidden"> 
+            <h2 id="tours-title">Recorridos 360°</h2>
+            <div id="recorrido-container" class="recorrido-container">
+                <div id="recorrido-canvas-container">
+                    <canvas id="recorrido-canvas"></canvas>
+                </div>
+                <div class="loading" id="loading-message">Cargando panorama...</div>
+                <div id="preview-container">
+                    <img id="preview-image" src="" alt="Vista previa">
+                </div> 
+            </div>
+        </section>
+
+        <section id="guia" class="module hidden">
+            <h2 id="guia-title">Guía Multilingüe</h2>
+            <div id="guia-container"></div>
+        </section>
+
+        <section id="mapa" class="module hidden">
+            <h2 id="mapa-title">Mapa Histórico Interactivo</h2>
+            <div id="mapa-container"></div>
+        </section>
+
+        <section id="encuesta" class="module hidden">
+            <h2 id="encuesta-title">Sección de encuestas</h2>
+            <div id="encuesta-container"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Portal Cultural de Manta. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
