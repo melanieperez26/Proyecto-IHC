@@ -74,12 +74,34 @@
 
         <section id="mapa" class="module hidden">
             <h2 id="mapa-title">Mapa Histórico Interactivo</h2>
-            <div id="mapa-container"></div>
+            <div style="display: flex; gap: 1rem;">
+                <div id="mapa-sidebar" role="region" aria-label="Panel de lugares turisticos" style="width: 300px; overflow-y: auto;"></div>
+                <div id="mapa-container" style="flex: 1; height: 600px;" role="region" aria-label="Mapa turistico de Manta"></div>
+            </div>
         </section>
 
         <section id="encuesta" class="module hidden">
             <h2 id="encuesta-title">Sección de encuestas</h2>
-            <div id="encuesta-container"></div>
+            <form id="encuesta-form">
+            <div class="encuesta-box">
+                <h3>¿Cómo fue tu experiencia?</h3>
+              
+                <div class="rating-group" role="radiogroup" aria-label="Nivel de satisfacción">
+                  <label title="Muy mala"><input type="radio" name="rating" value="1" aria-label="1 - Muy mala">Muy Mala😡</label>
+                  <label title="Mala"><input type="radio" name="rating" value="2" aria-label="2 - Mala">Mala😕</label>
+                  <label title="Regular"><input type="radio" name="rating" value="3" aria-label="3 - Regular">Regular😐</label>
+                  <label title="Buena"><input type="radio" name="rating" value="4" aria-label="4 - Buena">Buena🙂</label>
+                  <label title="Excelente"><input type="radio" name="rating" value="5" aria-label="5 - Excelente"> Excelente 🤩</label>
+                </div>
+              
+                <textarea id="comment" name="comment" placeholder="¿Tienes alguna sugerencia o mejora? Compartenos tu opinión. (opcional)"></textarea>
+                <button id="enviar-btn">Enviar</button>
+                <small style="color: #666; display:block; margin-top: 8px;">
+                    💡 Usa <strong>Ctrl + 1–5</strong> para calificar, <strong>Ctrl + E</strong> para escribir, <strong>Ctrl + S</strong> para enviar.
+                </small>                                 
+                <p id="feedback-message" role="status"></p>
+              </div>
+            </form>
         </section>
     </main>
 

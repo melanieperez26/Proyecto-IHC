@@ -1,6 +1,7 @@
 // Importar módulos
 import Recorrido360 from './modules/recorrido360.js';
 import MapaHistorico from './modules/mapaHistorico.js';
+import Encuesta from './modules/encuesta.js';
 
 // Inicialización del portal
 document.addEventListener('DOMContentLoaded', () => {
@@ -106,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (id === 'mapa') {
             if (!mapaInstance) {
-                mapaInstance = new MapaHistorico('mapa-container');
+                mapaInstance = new MapaHistorico('mapa-container', 'mapa-sidebar');
             }
         }
     }
@@ -196,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const guia = new GuiaMultilingue('guia-container');
     const ra = new RealidadAumentada('ra-container');
-    const educacion = new SeccionEducativa('educacion-container');
+    const encuesta = new Encuesta('encuesta-form');
 
     // Configuración de idiomas
     const idiomas = ['es', 'en'];
