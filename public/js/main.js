@@ -164,6 +164,15 @@ document.addEventListener('DOMContentLoaded', () => {
         mostrarSugerencias(valor);
     });
     
+    document.getElementById('clear-search').addEventListener('click', () => {
+        searchInput.value = '';
+        suggestionBox.innerHTML = '';
+        suggestionBox.classList.add('hidden');
+        searchMessage.textContent = '';
+        searchInput.focus();
+    });
+    
+
     
 
     let recorridoInstance = null;

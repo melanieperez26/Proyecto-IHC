@@ -22,46 +22,47 @@
             <h1 class="logo" id="logo-text">CULTURA MANTA</h1>
         </div>
         <nav class="main-nav">
-            <div class="search-container">
-                <div class="search-toggle" id="search-toggle">
+            <div class="search-container" role="search" aria-label="Barra de búsqueda">
+                <div class="search-toggle" id="search-toggle" aria-label="Abrir barra de búsqueda">
                     <span>Buscar🔍</span>
                 </div>
                 <div class="search-expanded hidden" id="search-expanded">
-                    <form id="search-form" class="search-form" role="search">
-                        <input type="search" id="search-input" placeholder="Escribe aqui lo que deseas buscar en el portal">
-                        <button type="submit">🔍</button>
+                    <form id="search-form" class="search-form" role="search" aria-label="Formulario de búsqueda">
+                        <input type="search" id="search-input" aria-label="Buscar en el portal" placeholder="Escribe aqui lo que deseas buscar en el portal">
+                        <button type="submit" aria-label="Buscar en el portal">🔍</button>
+                        <button type="button" id="clear-search" aria-label="Limpiar búsqueda">❌</button>
                     </form>
-                    <ul id="search-suggestions" class="search-suggestions hidden"></ul>
+                    <ul id="search-suggestions" class="search-suggestions hidden" aria-label="Sugerencias de búsqueda"></ul>
                     <p id="search-message" style="color: red; font-size: 0.9rem;"></p>
                 </div>
             </div>
-            <ul class="nav-links">
-                <li><a href="#" class="active" id="home-link">INICIO</a></li>
-                <li><a href="#" id="guia-link">GUÍA MULTILINGÜE</a></li>
-                <li><a href="#" id="tours-link">RECORRIDOS 360°</a></li>
-                <li><a href="#" id="mapa-link">MAPA HISTÓRICO</a></li>
-                <li><a href="#" id="encuesta-link">ENCUESTA</a></li>
+            <ul class="nav-links" role="navigation" aria-label="Menu principal">
+                <li><a href="#" class="active" id="home-link" aria-label="Ir al inicio">INICIO</a></li>
+                <li><a href="#" id="guia-link" aria-label="Ir a la guia multilingue">GUÍA MULTILINGÜE</a></li>
+                <li><a href="#" id="tours-link" aria-label="Ir a los recorridos 360°">RECORRIDOS 360°</a></li>
+                <li><a href="#" id="mapa-link" aria-label="Ir al mapa historico">MAPA HISTÓRICO</a></li>
+                <li><a href="#" id="encuesta-link" aria-label="Ir a la encuesta">ENCUESTA</a></li>
             </ul>
         </nav>
         
         <nav class="language-selector">
-            <button class="language-button active" data-idioma="es" onclick="languageService.setLanguage('es')">ES</button>
-            <button class="language-button" data-idioma="en" onclick="languageService.setLanguage('en')">EN</button>
+            <button class="language-button active" data-idioma="es" onclick="languageService.setLanguage('es')">Español</button>
+            <button class="language-button" data-idioma="en" onclick="languageService.setLanguage('en')">English</button>
         </nav>
     </header>
 
     <main>
-        <section id="hero" class="module">
+        <section id="hero" class="module" role="region" aria-label="Bienvenido al Portal Cultural de Manta">
             <h1 id="welcome-text">Bienvenido al Portal Cultural de Manta</h1>
             <p id="description-text">Explora la riqueza cultural y patrimonial de Manta</p>
         </section>
 
-        <section id="guia" class="module hidden">
+        <section id="guia" class="module hidden" role="region" aria-label="Guía Multilingüe">
             <h2 id="guia-title">Guía Multilingüe</h2>
             <div id="guia-container"></div>
         </section>
 
-        <section id="recorridos" class="module hidden"> 
+        <section id="recorridos" class="module hidden" role="region" aria-label="Recorridos 360°"> 
             <h2 id="tours-title">Recorridos 360°</h2>
             <div id="recorrido-container" class="recorrido-container">
                 <div id="recorrido-canvas-container">
@@ -74,7 +75,7 @@
             </div>
         </section>
 
-        <section id="mapa" class="module hidden">
+        <section id="mapa" class="module hidden" role="region" aria-label="Mapa Histórico Interactivo">
             <h2 id="mapa-title">Mapa Histórico Interactivo</h2>
             <h3 id="mapa-subtitle">En este mapa se encuentran marcados los lugares turisticos, históricos y culturales de Manta</h3>
             <div style="display: flex; gap: 1rem;">
@@ -83,9 +84,9 @@
             </div>
         </section>
 
-        <section id="encuesta" class="module hidden">
+        <section id="encuesta" class="module hidden" role="region" aria-label="Sección de encuestas">
             <h2 id="encuesta-title">Sección de encuestas</h2>
-            <form id="encuesta-form">
+            <form id="encuesta-form" role="form" aria-label="Formulario de encuesta">
             <div class="encuesta-box">
                 <h3>¿Cómo fue tu experiencia?</h3>
               
@@ -98,9 +99,9 @@
                 </div>
               
                 <textarea id="comment" name="comment" placeholder="¿Tienes alguna sugerencia o mejora? Compartenos tu opinión. (opcional)"></textarea>
-                <button id="enviar-btn">Enviar</button>
+                <button id="enviar-btn" aria-label="Enviar encuesta">Enviar</button>
                 <small style="color: #666; display:block; margin-top: 8px;">
-                    💡 Usa <strong>Ctrl + 1–5</strong> para calificar, <strong>Ctrl + E</strong> para escribir, <strong>Ctrl + S</strong> para enviar.
+                    Consejo💡 Usa <strong>Ctrl + 1–5</strong> para calificar, <strong>Ctrl + E</strong> para escribir, <strong>Ctrl + S</strong> para enviar.
                 </small>                                 
                 <p id="feedback-message" role="status"></p>
               </div>
