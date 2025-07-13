@@ -28,9 +28,11 @@
                 </div>
                 <div class="search-expanded hidden" id="search-expanded">
                     <form id="search-form" class="search-form" role="search">
-                        <input type="search" id="search-input" placeholder="Buscar...">
+                        <input type="search" id="search-input" placeholder="Escribe aqui lo que deseas buscar en el portal">
                         <button type="submit">🔍</button>
                     </form>
+                    <ul id="search-suggestions" class="search-suggestions hidden"></ul>
+                    <p id="search-message" style="color: red; font-size: 0.9rem;"></p>
                 </div>
             </div>
             <ul class="nav-links">
@@ -74,6 +76,7 @@
 
         <section id="mapa" class="module hidden">
             <h2 id="mapa-title">Mapa Histórico Interactivo</h2>
+            <h3 id="mapa-subtitle">En este mapa se encuentran marcados los lugares turisticos, históricos y culturales de Manta</h3>
             <div style="display: flex; gap: 1rem;">
                 <div id="mapa-sidebar" role="region" aria-label="Panel de lugares turisticos" style="width: 300px; overflow-y: auto;"></div>
                 <div id="mapa-container" style="flex: 1; height: 600px;" role="region" aria-label="Mapa turistico de Manta"></div>

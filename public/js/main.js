@@ -22,11 +22,85 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('search-expanded').classList.add('hidden');
         }
     });
+    
+    //para normalizar la busqueda
+    function normalizarTexto(texto) {
+        return texto
+            .toLowerCase()
+            .normalize("NFD")                 
+            .replace(/[\u0300-\u036f]/g, "") 
+            .trim();
+    }
+
+    const secciones={
+        'inicio': {
+            id:'hero',
+            keywords:['inicio', 'home', 'principal']
+        },
+        'recorridos': {
+            id:'recorridos',
+            keywords:['recorridos', 'tours', '360', 'tour', '360°', 'recorrido']
+        },
+        'guia': {
+            id:'guia',
+            keywords:['guia', 'multilingue', 'multilanguage', 'guia', 'guide', 'tourist guide']
+        },
+        'mapa': {
+            id:'mapa',
+            keywords:['mapa', 'historico', 'historical', 'map', 'historical map', 'historical map of manta']
+        },
+        'encuesta': {
+            id:'encuesta',
+            keywords:['encuesta', 'survey', 'encuesta', 'survey', 'opinion', 'formulario']
+        }
+    };
+
+    //para la ayudar a la busqueda
+    const suggestionBox = document.getElementById('search-suggestions');
+
+    function mostrarSugerencias(texto) {
+        const query = normalizarTexto(texto);
+        suggestionBox.innerHTML = '';
+
+        if (!query) {
+            suggestionBox.classList.add('hidden');
+            return;
+        }
+
+        const sugerencias = [];
+
+        for (const seccion of Object.values(secciones)) {
+            for (const palabra of seccion.keywords) {
+                if (normalizarTexto(palabra).includes(query)) {
+                    sugerencias.push({
+                        id: seccion.id,
+                        label: palabra
+                    });
+                }
+            }
+        }
+
+        if (sugerencias.length > 0) {
+            suggestionBox.classList.remove('hidden');
+            for (const sugerencia of sugerencias.slice(0, 5)) {
+                const li = document.createElement('li');
+                li.textContent = sugerencia.label;
+                li.addEventListener('click', () => {
+                    mostrarSection(sugerencia.id);
+                    suggestionBox.classList.add('hidden');
+                    searchInput.value = sugerencia.label;
+                });
+                suggestionBox.appendChild(li);
+            }
+        } else {
+            suggestionBox.classList.add('hidden');
+        }
+    }
 
 
     searchForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const query = searchInput.value.trim().toLowerCase();
+        const query = normalizarTexto(searchInput.value);
         
         if (!query) {
             searchMessage.textContent = languageService.translation.search?.emptyQuery || 'Por favor, ingresa un término de búsqueda';
@@ -34,32 +108,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const secciones={
-            'inicio': {
-                id:'hero',
-                keywords:['inicio', 'home', 'principal']
-            },
-            'recorridos': {
-                id:'recorridos',
-                keywords:['recorridos', 'tours', '360']
-            },
-            'guia': {
-                id:'guia',
-                keywords:['guia', 'multilingue', 'multilanguage']
-            },
-            'mapa': {
-                id:'mapa',
-                keywords:['mapa', 'historico', 'historical']
-            },
-            'encuesta': {
-                id:'encuesta',
-                keywords:['encuesta', 'survey', 'encuesta']
-            }
-        };
-
         let encontrado = false;
         for (const seccion of Object.values(secciones)){
-            if (query.includes(seccion.keywords)){
+            if (seccion.keywords.some(keyword => query.includes(keyword))){
                 mostrarSection(seccion.id);
                 encontrado = true;
                 break;
@@ -69,9 +120,16 @@ document.addEventListener('DOMContentLoaded', () => {
             searchMessage.textContent = 'No se encontró ninguna sección con el término de búsqueda';
         }
 
-        searchInput.addEventListener('input', () => {
-            searchMessage.textContent = '';
-        });
+        suggestionBox.classList.add('hidden');
+    });
+
+    searchInput.addEventListener('input', () => {
+        searchMessage.textContent = '';
+    });
+
+    searchInput.addEventListener('input', () => {
+        const valor = searchInput.value;
+        mostrarSugerencias(valor);
     });
     
     
