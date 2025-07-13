@@ -4,27 +4,33 @@ import MapaHistorico from './modules/mapaHistorico.js';
 import Encuesta from './modules/encuesta.js';
 
 //guia multilingue
-const guias = [
+const guiasAvanzadas = [
     {
+        id: 'recorridos',
         titulo: { es: "Recorridos 360°", en: "360° Tours" },
         descripcion: {
-            es: "Explora lugares en realidad virtual",
-            en: "Explore places in virtual reality"
-        }
+            es: "Explora virtualemente la historia de Manta en un recorrido 360° simulado",
+            en: "Explore places in virtual reality the history of Manta in a simulated 360° tour"
+        },
+        imagen: '/img/360tour.jpg',
     },
     {
+        id: 'mapa',
         titulo: { es: "Mapa Histórico", en: "Historical Map" },
         descripcion: {
-            es: "Ubica puntos turísticos e históricos de Manta",
-            en: "Locate historical and tourist spots in Manta"
-        }
+            es: "Descubre la historia de Manta ubicando sus puntos históricos y culturales más importantes.",
+            en: "Discover Manta’s history by locating its most important historical and cultural spots."
+        },
+        imagen: '/img/mapaHistorico.jpg',
     },
     {
+        id: 'encuesta',
         titulo: { es: "Encuesta", en: "Survey" },
         descripcion: {
-            es: "Deja tu opinión sobre tu experiencia",
-            en: "Share your experience with us"
-        }
+            es: "Comparte tu opinión y ayúdanos a mejorar la experiencia del portal turístico.",
+            en: "Share your experience and help us improve the tourist portal experience."
+        },
+        imagen: '/img/encuesta.jpg',
     }
 ];
 
@@ -234,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         mostrarSection('hero');
     });
-    
+
     document.getElementById('guia-link').addEventListener('click', (e) => {
         e.preventDefault();
         mostrarSection('guia');
@@ -262,24 +268,37 @@ document.addEventListener('DOMContentLoaded', () => {
             this.idiomas = ['es', 'en'];
             this.init();
         }
-    
+
         init() {
             const idioma = document.documentElement.lang || 'es';
             this.container.innerHTML = ''; // Limpiar contenido anterior
-    
-            guias.forEach(item => {
+
+            guiasAvanzadas.forEach(item => {
                 const card = document.createElement('div');
                 card.classList.add('guia-card');
-    
-                card.innerHTML = `
-                    <h3>${item.titulo[idioma]}</h3>
-                    <p>${item.descripcion[idioma]}</p>
-                `;
-    
+
+                const h3 = document.createElement('h3');
+                h3.textContent = item.titulo[idioma];
+
+                const p = document.createElement('p');
+                p.textContent = item.descripcion[idioma];
+
+                const boton = document.createElement('button');
+                boton.textContent = idioma === 'es' ? 'Más información' : 'More info';
+                boton.classList.add('guia-link');
+                boton.addEventListener('click', () => {
+                    mostrarSection(item.id);
+                });
+
+                card.appendChild(h3);
+                card.appendChild(p);
+                card.appendChild(boton);
+
                 this.container.appendChild(card);
             });
         }
     }
+
     
 
     class RealidadAumentada {
