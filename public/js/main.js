@@ -3,6 +3,32 @@ import Recorrido360 from './modules/recorrido360.js';
 import MapaHistorico from './modules/mapaHistorico.js';
 import Encuesta from './modules/encuesta.js';
 
+//guia multilingue
+const guias = [
+    {
+        titulo: { es: "Recorridos 360°", en: "360° Tours" },
+        descripcion: {
+            es: "Explora lugares en realidad virtual",
+            en: "Explore places in virtual reality"
+        }
+    },
+    {
+        titulo: { es: "Mapa Histórico", en: "Historical Map" },
+        descripcion: {
+            es: "Ubica puntos turísticos e históricos de Manta",
+            en: "Locate historical and tourist spots in Manta"
+        }
+    },
+    {
+        titulo: { es: "Encuesta", en: "Survey" },
+        descripcion: {
+            es: "Deja tu opinión sobre tu experiencia",
+            en: "Share your experience with us"
+        }
+    }
+];
+
+
 // Inicialización del portal
 document.addEventListener('DOMContentLoaded', () => {
     const searchForm = document.getElementById('search-form');
@@ -37,13 +63,13 @@ document.addEventListener('DOMContentLoaded', () => {
             id:'hero',
             keywords:['inicio', 'home', 'principal']
         },
-        'recorridos': {
-            id:'recorridos',
-            keywords:['recorridos', 'tours', '360', 'tour', '360°', 'recorrido']
-        },
         'guia': {
             id:'guia',
             keywords:['guia', 'multilingue', 'multilanguage', 'guia', 'guide', 'tourist guide']
+        },
+        'recorridos': {
+            id:'recorridos',
+            keywords:['recorridos', 'tours', '360', 'tour', '360°', 'recorrido']
         },
         'mapa': {
             id:'mapa',
@@ -136,6 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let recorridoInstance = null;
     let mapaInstance = null;
+    let guiaInstance = null;
 
     function mostrarSection(id) {
         console.log('Mostrando sección:', id);
@@ -168,14 +195,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 mapaInstance = new MapaHistorico('mapa-container', 'mapa-sidebar');
             }
         }
+
+        if (id === 'guia') {
+            if (!guiaInstance) {
+                guiaInstance = new GuiaMultilingue('guia-container');
+            }
+        }
+        guiaInstance.init();
     }
 
     function actualizarMenuActivo(idSection) {
         // Mapeo id sección -> id link menú
         const mapaSeccionALink = {
             'hero': 'home-link',
-            'recorridos': 'tours-link',
             'guia': 'guia-link',
+            'recorridos': 'tours-link',
             'mapa': 'mapa-link',
             'encuesta': 'encuesta-link'
         };
@@ -200,15 +234,15 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         mostrarSection('hero');
     });
+    
+    document.getElementById('guia-link').addEventListener('click', (e) => {
+        e.preventDefault();
+        mostrarSection('guia');
+    });
 
     document.getElementById('tours-link').addEventListener('click', (e) => {
         e.preventDefault();
         mostrarSection('recorridos');
-    });
-
-    document.getElementById('guia-link').addEventListener('click', (e) => {
-        e.preventDefault();
-        mostrarSection('guia');
     });
 
     document.getElementById('mapa-link').addEventListener('click', (e) => {
@@ -228,10 +262,25 @@ document.addEventListener('DOMContentLoaded', () => {
             this.idiomas = ['es', 'en'];
             this.init();
         }
+    
         init() {
-            console.log('Inicializando guía multilingüe');
+            const idioma = document.documentElement.lang || 'es';
+            this.container.innerHTML = ''; // Limpiar contenido anterior
+    
+            guias.forEach(item => {
+                const card = document.createElement('div');
+                card.classList.add('guia-card');
+    
+                card.innerHTML = `
+                    <h3>${item.titulo[idioma]}</h3>
+                    <p>${item.descripcion[idioma]}</p>
+                `;
+    
+                this.container.appendChild(card);
+            });
         }
     }
+    
 
     class RealidadAumentada {
         constructor(containerId) {
@@ -253,7 +302,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const guia = new GuiaMultilingue('guia-container');
     const ra = new RealidadAumentada('ra-container');
     const encuesta = new Encuesta('encuesta-form');
 
@@ -268,24 +316,31 @@ document.addEventListener('DOMContentLoaded', () => {
             const nuevoIdioma = button.dataset.idioma;
             localStorage.setItem('idioma', nuevoIdioma);
             document.documentElement.lang = nuevoIdioma;
-
+    
             languageService.setLanguage(nuevoIdioma);
-
+    
             const elementsToUpdate = {
                 'welcome-text': languageService.translations.common.welcome,
                 'description-text': languageService.translations.common.description,
                 'tours-title': languageService.translations.recorridos.title,
                 'loading-message': languageService.translations.recorridos.loading
             };
-
+    
             for (const [id, text] of Object.entries(elementsToUpdate)) {
                 const element = document.getElementById(id);
                 if (element) {
                     element.textContent = text;
                 }
             }
+    
+            // 👇 Aquí actualizamos la guía
+            if (guiaInstance) {
+                guiaInstance.init();
+            }
+    
         });
     });
+    
 
     // Mostrar inicio por defecto
     mostrarSection('hero');

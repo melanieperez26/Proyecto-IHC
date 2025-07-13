@@ -37,16 +37,16 @@
             </div>
             <ul class="nav-links">
                 <li><a href="#" class="active" id="home-link">INICIO</a></li>
-                <li><a href="#" id="tours-link">RECORRIDOS 360°</a></li>
                 <li><a href="#" id="guia-link">GUÍA MULTILINGÜE</a></li>
+                <li><a href="#" id="tours-link">RECORRIDOS 360°</a></li>
                 <li><a href="#" id="mapa-link">MAPA HISTÓRICO</a></li>
                 <li><a href="#" id="encuesta-link">ENCUESTA</a></li>
             </ul>
         </nav>
         
         <nav class="language-selector">
-            <button class="language-button active" data-lang="es" onclick="languageService.setLanguage('es')">ES</button>
-            <button class="language-button" data-lang="en" onclick="languageService.setLanguage('en')">EN</button>
+            <button class="language-button active" data-idioma="es" onclick="languageService.setLanguage('es')">ES</button>
+            <button class="language-button" data-idioma="en" onclick="languageService.setLanguage('en')">EN</button>
         </nav>
     </header>
 
@@ -54,6 +54,11 @@
         <section id="hero" class="module">
             <h1 id="welcome-text">Bienvenido al Portal Cultural de Manta</h1>
             <p id="description-text">Explora la riqueza cultural y patrimonial de Manta</p>
+        </section>
+
+        <section id="guia" class="module hidden">
+            <h2 id="guia-title">Guía Multilingüe</h2>
+            <div id="guia-container"></div>
         </section>
 
         <section id="recorridos" class="module hidden"> 
@@ -67,11 +72,6 @@
                     <img id="preview-image" src="" alt="Vista previa">
                 </div> 
             </div>
-        </section>
-
-        <section id="guia" class="module hidden">
-            <h2 id="guia-title">Guía Multilingüe</h2>
-            <div id="guia-container"></div>
         </section>
 
         <section id="mapa" class="module hidden">
