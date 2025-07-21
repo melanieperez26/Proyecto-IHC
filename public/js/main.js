@@ -2,6 +2,7 @@
 import Recorrido360 from './modules/recorrido360.js';
 import MapaHistorico from './modules/mapaHistorico.js';
 import Encuesta from './modules/encuesta.js';
+import Ayuda from './modules/ayudas.js';
 
 //guia multilingue
 const guiasAvanzadas = [
@@ -84,6 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
         'encuesta': {
             id:'encuesta',
             keywords:['encuesta', 'survey', 'encuesta', 'survey', 'opinion', 'formulario']
+        },
+        'ayuda': {
+            id:'ayuda',
+            keywords:['ayuda', 'help', 'ayuda', 'help', 'ayuda', 'help']
         }
     };
 
@@ -178,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let recorridoInstance = null;
     let mapaInstance = null;
     let guiaInstance = null;
+    let ayudaInstance = null;
 
     function mostrarSection(id) {
         console.log('Mostrando sección:', id);
@@ -215,8 +221,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!guiaInstance) {
                 guiaInstance = new GuiaMultilingue('guia-container');
             }
+            guiaInstance.init();
         }
-        guiaInstance.init();
+
+        if (id === 'ayuda') {
+            if (!ayudaInstance) {
+                ayudaInstance = new Ayuda('ayuda-container');
+            }
+            ayudaInstance.init();
+        }
     }
 
     function actualizarMenuActivo(idSection) {
@@ -226,7 +239,8 @@ document.addEventListener('DOMContentLoaded', () => {
             'guia': 'guia-link',
             'recorridos': 'tours-link',
             'mapa': 'mapa-link',
-            'encuesta': 'encuesta-link'
+            'encuesta': 'encuesta-link',
+            'ayuda': 'ayuda-link'
         };
 
         // Quitar clase active de todos los enlaces
@@ -268,6 +282,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('encuesta-link').addEventListener('click', (e) => {
         e.preventDefault();
         mostrarSection('encuesta');
+    });
+
+    document.getElementById('ayuda-link').addEventListener('click', (e) => {
+        e.preventDefault();
+        mostrarSection('ayuda');
     });
 
     // Inicializar otras clases (guía multilingüe, RA, educación)
@@ -332,6 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const ra = new RealidadAumentada('ra-container');
     const encuesta = new Encuesta('encuesta-form');
+    const ayuda = new Ayuda('ayuda-form');
 
     // Configuración de idiomas
     const idiomas = ['es', 'en'];
@@ -364,6 +384,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // 👇 Aquí actualizamos la guía
             if (guiaInstance) {
                 guiaInstance.init();
+            }
+    
+            // 👇 Aquí actualizamos la ayuda
+            if (ayudaInstance) {
+                ayudaInstance.init();
             }
     
         });

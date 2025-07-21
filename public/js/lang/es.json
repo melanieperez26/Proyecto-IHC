@@ -7,11 +7,13 @@
         "guia": "Guía Multilingüe",
         "mapa": "Mapa Histórico",
         "encuesta": "Encuesta",
+        "ayuda": "Ayuda",
         "welcome": "Bienvenido al Portal Cultural de Manta",
         "description": "Explora la riqueza cultural y patrimonial de Manta",
         "guiaTitle": "Guía Multilingüe",
         "mapaTitle": "Mapa Histórico Interactivo",
-        "encuestaTitle": "Sección de encuestas"
+        "encuestaTitle": "Sección de encuestas",
+        "ayudaTitle": "Sección de ayuda"
     },
     "search": {
         "emptyQuery": "Por favor, ingresa un término de búsqueda",

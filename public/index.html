@@ -42,6 +42,7 @@
                 <li><a href="#" id="tours-link" aria-label="Ir a los recorridos 360°">RECORRIDOS 360°</a></li>
                 <li><a href="#" id="mapa-link" aria-label="Ir al mapa historico">MAPA HISTÓRICO</a></li>
                 <li><a href="#" id="encuesta-link" aria-label="Ir a la encuesta">ENCUESTA</a></li>
+                <li><a href="#" id="ayuda-link" aria-label="Ir a la ayuda">AYUDA</a></li>
             </ul>
         </nav>
         
@@ -110,6 +111,53 @@
               </div>
             </form>
         </section>
+
+        <section id="ayuda" class="module hidden" role="region" aria-label="Sección de ayuda">
+            <h2>Solicitud de Ayuda de Accesibilidad</h2>
+            <form id="ayuda-form" novalidate>
+
+                <input type="hidden" id="registro-ayuda-id" name="id" />
+
+                <label for="nombre">Nombre (opcional):</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ejemplo: Maria Velez" autocomplete="name">
+
+                <label for="email">Correo electrónico (opcional):</label>
+                <input type="email" id="email" name="email" placeholder="Ejemplo: tuCorreo@correo.com" autocomplete="email">
+                <small id="email-error" class="mensaje-error"></small>
+
+                <label for="tipo-ayuda">Tipo de ayuda (obligatorio) <span aria-hidden="true">*</span>:</label>
+                <select id="tipo-ayuda" name="tipo-ayuda" required aria-required="true">
+                <option value="" disabled selected>Seleccione una opción</option>
+                <option value="contraste">Alto contraste</option>
+                <option value="subtitulos">Subtítulos</option>
+                <option value="navegacion">Navegación por teclado</option>
+                <option value="lector">Compatibilidad con lector de pantalla</option>
+                </select>
+
+                <label for="dispositivo">Dispositivo (obligatorio) <span aria-hidden="true">*</span>:</label>
+                <select id="dispositivo" name="dispositivo" required aria-required="true">
+                <option value="" disabled selected>Seleccione una opción</option>
+                <option value="pc">PC</option>
+                <option value="movil">Móvil</option>
+                <option value="tablet">Tablet</option>
+                </select>
+
+                <label for="frecuencia">Frecuencia (obligatorio) <span aria-hidden="true">*</span>:</label>
+                <select id="frecuencia" name="frecuencia" required aria-required="true">
+                <option value="" disabled selected>Seleccione una opción</option>
+                <option value="diaria">Diaria</option>
+                <option value="semanal">Semanal</option>
+                <option value="mensual">Mensual</option>
+                </select>
+
+                <label for="comentario">Comentario adicional (obligatorio) <span aria-hidden="true">*</span>:</label>
+                <textarea id="comentario" name="comentario" placeholder="Describe tu necesidad (mínimo 10 caracteres)" minlength="10" required aria-required="true"></textarea>
+
+                <button type="submit">Enviar solicitud</button>
+                <button type="button" onclick="resetearFormulario()">Cancelar</button>
+                <p id="ayuda-feedback" role="status" aria-live="polite" style="margin-top: 10px; color: green;"></p>
+            </form>
+        </section>          
     </main>
 
     <footer>

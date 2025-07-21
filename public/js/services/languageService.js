@@ -37,11 +37,13 @@ class LanguageService {
             'welcome-text': this.translations.common.welcome,
             'description-text': this.translations.common.description,
             'loading-message': this.translations.recorridos.loading,
+            'ayuda-link': this.translations.common.ayuda,
 
             'tours-title': this.translations.recorridos.title,
             'guia-title': this.translations.common.guiaTitle,
             'mapa-title': this.translations.common.mapaTitle,
-            'encuesta-title': this.translations.common.encuestaTitle
+            'encuesta-title': this.translations.common.encuestaTitle,
+            'ayuda-title': this.translations.common.ayudaTitle
         };
 
         for (const [id, text] of Object.entries(elementsToUpdate)) {

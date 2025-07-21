@@ -72,6 +72,44 @@ app.get('/api/encuestas', async (req, res) => {
     res.json(result.rows);
 });
 
+app.post('/api/ayuda', async (req, res) => {
+    const { nombre, email, tipo, comentario, dispositivo, frecuencia } = req.body;
+  
+    // Validación básica
+    if (!tipo || !comentario || !dispositivo || !frecuencia) {
+      return res.status(400).json({ error: 'Datos incompletos: tipo, comentario, dispositivo y frecuencia son obligatorios.' });
+    }
+    if (typeof comentario !== 'string' || comentario.trim().length < 10) {
+      return res.status(400).json({ error: 'El comentario debe tener al menos 10 caracteres.' });
+    }
+    // (Opcional) Validar formato de email si viene enviado
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.toLowerCase())) {
+      return res.status(400).json({ error: 'Correo electrónico inválido.' });
+    }
+  
+    try {
+      const result = await pool.query(
+        `INSERT INTO ayudas (nombre, email, tipo, comentario, dispositivo, frecuencia) 
+         VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+        [nombre || null, email || null, tipo, comentario, dispositivo, frecuencia]
+      );
+      res.status(201).json({ message: 'Ayuda guardada', data: result.rows[0] });
+    } catch (error) {
+      console.error('Error al guardar ayuda:', error);
+      res.status(500).json({ error: 'Error del servidor' });
+    }
+});
+  
+app.get('/api/ayudas', async (req, res) => {
+    try {
+      const result = await pool.query('SELECT * FROM ayudas ORDER BY fecha DESC');
+      res.json(result.rows);
+    } catch (error) {
+      console.error('Error al obtener ayudas:', error);
+      res.status(500).json({ error: 'Error del servidor' });
+    }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
