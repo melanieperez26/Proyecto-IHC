@@ -63,16 +63,17 @@ export default class Incidencia {
             if (!respuesta.ok) throw new Error('Error al enviar la incidencia');
   
             const resultado = await respuesta.json();
+            const datos = resultado.data;
   
             // Mostrar resumen con datos devueltos del servidor
             this.resumenDiv.style.display = "block";
             this.resumenDiv.innerHTML = `
               <h2>✅ Incidencia Enviada</h2>
-              <p><strong>Nombre:</strong> ${resultado.nombre}</p>
-              <p><strong>Correo:</strong> ${resultado.correo}</p>
-              <p><strong>Tipo:</strong> ${resultado.tipo}</p>
-              <p><strong>Descripción:</strong> ${resultado.descripcion}</p>
-              <p><strong>Fecha:</strong> ${resultado.fecha}</p>
+              <p><strong>Nombre:</strong> ${datos.nombre || 'Sin nombre'}</p>
+              <p><strong>Correo:</strong> ${datos.correo || 'Sin correo'}</p>
+              <p><strong>Tipo:</strong> ${datos.tipo}</p>
+              <p><strong>Descripción:</strong> ${datos.descripcion}</p>
+              <p><strong>Fecha:</strong> ${datos.fecha}</p>
               <button type="button" id="btn-editar">Editar</button>
               <button type="button" id="btn-reiniciar">Enviar otra incidencia</button>
             `;

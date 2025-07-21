@@ -138,7 +138,7 @@ app.post('/api/incidencias', async (req, res) => {
 
 app.get('/api/incidencias', async (req, res) => {
     try {
-      const result = await pool.query('SELECT * FROM incidencia ORDER BY fecha DESC');
+      const result = await pool.query('SELECT * FROM incidencias ORDER BY fecha DESC');
       res.json(result.rows);
     } catch (error) {
       console.error('Error al obtener incidencias:', error);
