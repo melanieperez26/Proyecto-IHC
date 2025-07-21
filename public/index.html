@@ -114,50 +114,65 @@
 
         <section id="ayuda" class="module hidden" role="region" aria-label="Sección de ayuda">
             <h2>Solicitud de Ayuda de Accesibilidad</h2>
+          
+            <!-- Formulario -->
             <form id="ayuda-form" novalidate>
-
-                <input type="hidden" id="registro-ayuda-id" name="id" />
-
-                <label for="nombre">Nombre (opcional):</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Ejemplo: Maria Velez" autocomplete="name">
-
-                <label for="email">Correo electrónico (opcional):</label>
-                <input type="email" id="email" name="email" placeholder="Ejemplo: tuCorreo@correo.com" autocomplete="email">
-                <small id="email-error" class="mensaje-error"></small>
-
-                <label for="tipo-ayuda">Tipo de ayuda (obligatorio) <span aria-hidden="true">*</span>:</label>
-                <select id="tipo-ayuda" name="tipo-ayuda" required aria-required="true">
+          
+              <input type="hidden" id="registro-ayuda-id" name="id" />
+          
+              <label for="nombre">Nombre (opcional):</label>
+              <input type="text" id="nombre" name="nombre" placeholder="Ejemplo: Maria Velez" autocomplete="name">
+          
+              <label for="email">Correo electrónico (opcional):</label>
+              <input type="email" id="email" name="email" placeholder="Ejemplo: tuCorreo@correo.com" autocomplete="email">
+              <small id="email-error" class="mensaje-error"></small>
+          
+              <label for="tipo-ayuda">Tipo de ayuda (obligatorio) <span aria-hidden="true">*</span>:</label>
+              <select id="tipo-ayuda" name="tipo-ayuda" required aria-required="true">
                 <option value="" disabled selected>Seleccione una opción</option>
                 <option value="contraste">Alto contraste</option>
                 <option value="subtitulos">Subtítulos</option>
                 <option value="navegacion">Navegación por teclado</option>
                 <option value="lector">Compatibilidad con lector de pantalla</option>
-                </select>
-
-                <label for="dispositivo">Dispositivo (obligatorio) <span aria-hidden="true">*</span>:</label>
-                <select id="dispositivo" name="dispositivo" required aria-required="true">
+              </select>
+          
+              <label for="dispositivo">Dispositivo (obligatorio) <span aria-hidden="true">*</span>:</label>
+              <select id="dispositivo" name="dispositivo" required aria-required="true">
                 <option value="" disabled selected>Seleccione una opción</option>
                 <option value="pc">PC</option>
                 <option value="movil">Móvil</option>
                 <option value="tablet">Tablet</option>
-                </select>
-
-                <label for="frecuencia">Frecuencia (obligatorio) <span aria-hidden="true">*</span>:</label>
-                <select id="frecuencia" name="frecuencia" required aria-required="true">
+              </select>
+          
+              <label for="frecuencia">Frecuencia (obligatorio) <span aria-hidden="true">*</span>:</label>
+              <select id="frecuencia" name="frecuencia" required aria-required="true">
                 <option value="" disabled selected>Seleccione una opción</option>
                 <option value="diaria">Diaria</option>
                 <option value="semanal">Semanal</option>
                 <option value="mensual">Mensual</option>
-                </select>
-
-                <label for="comentario">Comentario adicional (obligatorio) <span aria-hidden="true">*</span>:</label>
-                <textarea id="comentario" name="comentario" placeholder="Describe tu necesidad (mínimo 10 caracteres)" minlength="10" required aria-required="true"></textarea>
-
-                <button type="submit">Enviar solicitud</button>
-                <button type="button" onclick="resetearFormulario()">Cancelar</button>
-                <p id="ayuda-feedback" role="status" aria-live="polite" style="margin-top: 10px; color: green;"></p>
+              </select>
+          
+              <label for="comentario">Comentario adicional (obligatorio) <span aria-hidden="true">*</span>:</label>
+              <textarea id="comentario" name="comentario" placeholder="Describe tu necesidad (mínimo 10 caracteres)" minlength="10" required aria-required="true"></textarea>
+          
+              <button type="submit">Enviar solicitud</button>
+              <button type="button" onclick="resetearFormulario()">Cancelar</button>
+              <p id="ayuda-feedback" role="status" aria-live="polite" style="margin-top: 10px; color: green;"></p>
             </form>
-        </section>          
+          
+            <!-- Resumen tras enviar, oculto inicialmente -->
+            <section id="resumen-ayuda" class="hidden" aria-live="polite" style="margin-top: 20px;">
+              <h3>Tu solicitud ha sido enviada exitosamente ✅</h3>
+              <p><strong>Nombre:</strong> <span id="res-nombre"></span></p>
+              <p><strong>Email:</strong> <span id="res-email"></span></p>
+              <p><strong>Tipo de ayuda:</strong> <span id="res-tipo-ayuda"></span></p>
+              <p><strong>Dispositivo:</strong> <span id="res-dispositivo"></span></p>
+              <p><strong>Frecuencia:</strong> <span id="res-frecuencia"></span></p>
+              <p><strong>Comentario:</strong> <span id="res-comentario"></span></p>
+              <button id="btn-editar">Editar solicitud</button>
+              <button id="btn-volver-limpio" type="button" class="hidden" onclick="mostrarFormularioLimpio()">Volver al formulario</button>
+            </section>
+        </section>                  
     </main>
 
     <footer>

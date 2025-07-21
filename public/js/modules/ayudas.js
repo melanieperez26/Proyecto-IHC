@@ -16,7 +16,64 @@ function resetearFormulario() {
     }
     document.querySelector("#ayuda-form button[type='submit']").textContent = "Enviar solicitud";
     document.getElementById("registro-ayuda-id").value = "";
+
+    // Mostrar formulario y ocultar resumen
+    document.getElementById("ayuda-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+    
+        const nombre = document.getElementById("nombre").value;
+        const email = document.getElementById("email").value;
+        const tipoAyuda = document.getElementById("tipo-ayuda").value;
+        const dispositivo = document.getElementById("dispositivo").value;
+        const frecuencia = document.getElementById("frecuencia").value;
+        const comentario = document.getElementById("comentario").value;
+    
+        const resumenHTML = `
+            <li><strong>Nombre:</strong> ${nombre || "(No proporcionado)"}</li>
+            <li><strong>Email:</strong> ${email || "(No proporcionado)"}</li>
+            <li><strong>Tipo de ayuda:</strong> ${tipoAyuda}</li>
+            <li><strong>Dispositivo:</strong> ${dispositivo}</li>
+            <li><strong>Frecuencia:</strong> ${frecuencia}</li>
+            <li><strong>Comentario:</strong> ${comentario}</li>
+        `;
+    
+        document.getElementById("ayuda-resumen-lista").innerHTML = resumenHTML;
+        document.getElementById("ayuda-form").classList.add("hidden");
+        document.getElementById("ayuda-resumen").classList.remove("hidden");
+    
+        // Mostrar botón de volver solo después de actualizar
+        document.getElementById("volver-ayuda").classList.remove("hidden");
+    });
+    
+    document.getElementById("editar-ayuda").addEventListener("click", function () {
+        document.getElementById("ayuda-form").classList.remove("hidden");
+        document.getElementById("ayuda-resumen").classList.add("hidden");
+    
+        // Ocultar botón volver (por si ya lo había mostrado)
+        document.getElementById("volver-ayuda").classList.add("hidden");
+    });
+    
+    document.getElementById("volver-ayuda").addEventListener("click", function () {
+        document.getElementById("ayuda-form").classList.remove("hidden");
+        document.getElementById("ayuda-resumen").classList.add("hidden");
+        document.getElementById("volver-ayuda").classList.add("hidden");
+    });
+    
+    function resetearFormulario() {
+        document.getElementById("ayuda-form").reset();
+        document.getElementById("ayuda-feedback").textContent = "";
+    }
 }
+
+function mostrarFormularioLimpio() {
+    const form = document.getElementById("ayuda-form");
+    form.reset(); // Limpia los campos
+    document.getElementById("registro-ayuda-id").value = ""; // Por si acaso
+    document.getElementById("ayuda-feedback").textContent = ""; // Limpia mensaje
+    document.getElementById("volver-formulario").classList.add("hidden"); // Oculta botón
+    document.getElementById("ayuda").classList.remove("hidden"); // Muestra formulario
+}
+
 
 // Función para cargar datos al formulario y poner el ID
 function cargarDatosParaEditar(datos) {
@@ -38,6 +95,18 @@ export default class Ayuda {
     constructor(formId) {
       this.form = document.getElementById(formId);
       this.feedback = document.getElementById("ayuda-feedback");
+
+      //seccion de resumen y campos
+      this.resumenSection = document.getElementById("resumen-ayuda");
+      this.resumenCampos = {
+        nombre: document.getElementById("res-nombre"),
+        email: document.getElementById("res-email"),
+        tipo: document.getElementById("res-tipo-ayuda"),
+        dispositivo: document.getElementById("res-dispositivo"),
+        frecuencia: document.getElementById("res-frecuencia"),
+        comentario: document.getElementById("res-comentario"),
+      };
+      this.btnEditar = document.getElementById("btn-editar");
       this.init();
       this.initAtajosTeclado();
     }
@@ -67,6 +136,24 @@ export default class Ayuda {
       
   
     init() {
+
+        const btnVolverLimpio = document.getElementById("btn-volver-limpio");
+        if (btnVolverLimpio) {
+          btnVolverLimpio.addEventListener("click", () => {
+            this.form.reset();
+            document.getElementById("registro-ayuda-id").value = "";
+            this.feedback.textContent = "";
+
+            this.form.classList.remove("hidden");
+            this.resumenSection.classList.add("hidden");
+            btnVolverLimpio.classList.add("hidden");
+
+            // Restaurar el texto del botón submit
+            const submitBtn = this.form.querySelector("button[type='submit']");
+            if (submitBtn) submitBtn.textContent = "Enviar solicitud";
+          });
+        }
+
       document.querySelector("#ayuda-form button[type='button']").addEventListener("click", resetearFormulario);
 
       this.initValidacionesEnTiempoReal();
@@ -74,6 +161,31 @@ export default class Ayuda {
       if (!this.form) return;
   
       this.form.addEventListener("submit", async (e) => {
+
+        if (this.btnEditar) {
+            this.btnEditar.addEventListener("click", () => {
+              // Ocultar resumen, mostrar formulario
+              this.resumenSection.classList.add("hidden");
+              this.form.classList.remove("hidden");
+          
+              // Cargar datos en el formulario para edición
+              const datos = {
+                id: document.getElementById("registro-ayuda-id").value,
+                nombre: this.resumenCampos.nombre.textContent === "(no proporcionado)" ? "" : this.resumenCampos.nombre.textContent,
+                email: this.resumenCampos.email.textContent === "(no proporcionado)" ? "" : this.resumenCampos.email.textContent,
+                tipo: this.resumenCampos.tipo.textContent,
+                dispositivo: this.resumenCampos.dispositivo.textContent,
+                frecuencia: this.resumenCampos.frecuencia.textContent,
+                comentario: this.resumenCampos.comentario.textContent,
+              };
+              cargarDatosParaEditar(datos);
+          
+              // Actualizar botón submit a "Actualizar"
+              document.querySelector("#ayuda-form button[type='submit']").textContent = "Actualizar";
+            });
+        }
+
+
         e.preventDefault();
 
         const id=document.getElementById("registro-ayuda-id").value;
@@ -140,6 +252,20 @@ export default class Ayuda {
           console.error(err);
           this.mostrarFeedback("❌ Error al enviar la solicitud. Intenta más tarde.", true);
         }
+
+        // Llenar resumen con datos enviados
+        this.resumenCampos.nombre.textContent = nombre || "(no proporcionado)";
+        this.resumenCampos.email.textContent = email || "(no proporcionado)";
+        this.resumenCampos.tipo.textContent = tipo;
+        this.resumenCampos.dispositivo.textContent = dispositivo;
+        this.resumenCampos.frecuencia.textContent = frecuencia;
+        this.resumenCampos.comentario.textContent = comentario;
+
+        // Ocultar formulario y mostrar resumen
+        this.form.classList.add("hidden");
+        this.resumenSection.classList.remove("hidden");
+        document.getElementById("btn-volver-limpio").classList.remove("hidden");
+
       });
 
       let cambios = false;
