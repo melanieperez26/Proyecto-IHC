@@ -41,8 +41,14 @@
                 <li><a href="#" id="guia-link" aria-label="Ir a la guia multilingue">GUÍA MULTILINGÜE</a></li>
                 <li><a href="#" id="tours-link" aria-label="Ir a los recorridos 360°">RECORRIDOS 360°</a></li>
                 <li><a href="#" id="mapa-link" aria-label="Ir al mapa historico">MAPA HISTÓRICO</a></li>
-                <li><a href="#" id="encuesta-link" aria-label="Ir a la encuesta">ENCUESTA</a></li>
-                <li><a href="#" id="ayuda-link" aria-label="Ir a la ayuda">AYUDA</a></li>
+                <li class="submenu">
+                    <a href="#" aria-label="Abrir sección de formularios">FORMULARIOS ⌄</a>
+                    <ul class="submenu-links">
+                        <li><a href="#" id="encuesta-link" aria-label="Ir a la encuesta">ENCUESTA</a></li>
+                        <li><a href="#" id="ayuda-link" aria-label="Ir a la ayuda">AYUDA</a></li>
+                      <li><a href="#" id="incidencias-link"> INCIDENTES</a></li>
+                    </ul>
+                  </li>                  
             </ul>
         </nav>
         
@@ -172,7 +178,43 @@
               <button id="btn-editar">Editar solicitud</button>
               <button id="btn-volver-limpio" type="button" class="hidden" onclick="mostrarFormularioLimpio()">Volver al formulario</button>
             </section>
-        </section>                  
+        </section>  
+        
+        <section id="form-incidencias" class="module hidden" role="region" aria-label="Sección de formularios">
+            <h1>Formulario de Incidencias</h1>
+
+            <form id="form-incidencias-form" novalidate>
+                <label for="form-incidencias-nombre">Nombre del usuario *</label>
+                <input type="text" id="form-incidencias-nombre" name="nombre" aria-required="true" aria-describedby="errorNombre" />
+                <div id="errorNombre" class="error" aria-live="polite"></div>
+
+                <label for="form-incidencias-correo">Correo electrónico *</label>
+                <input type="email" id="form-incidencias-correo" name="correo" aria-required="true" aria-describedby="errorCorreo" />
+                <div id="errorCorreo" class="error" aria-live="polite"></div>
+
+                <label for="form-incidencias-tipo">Tipo de incidencia *</label>
+                <select id="form-incidencias-tipo" name="tipo" aria-required="true" aria-describedby="errorTipo">
+                <option value="">Seleccione una opción</option>
+                <option value="tecnica">Falla Técnica</option>
+                <option value="contenido">Error de Contenido</option>
+                <option value="acceso">Problemas de acceso</option>
+                <option value="otro">Otro</option>
+                </select>
+                <div id="errorTipo" class="error" aria-live="polite"></div>
+
+                <label for="form-incidencias-descripcion">Descripción de la incidencia *</label>
+                <textarea id="form-incidencias-descripcion" name="descripcion" rows="4" aria-required="true" aria-describedby="errorDescripcion" placeholder="Describe la incidencia con claridad..."></textarea></textarea>
+                <div id="errorDescripcion" class="error" aria-live="polite"></div>
+
+                <label for="form-incidencias-fecha">Fecha del incidente *</label>
+                <input type="date" id="form-incidencias-fecha" name="fecha" aria-required="true" aria-describedby="errorFecha" />
+                <div id="errorFecha" class="error" aria-live="polite"></div>
+
+                <button type="submit" aria-label="Enviar incidencia">Enviar incidencia</button>
+            </form>
+
+            <div id="resumen" class="summary" style="display:none;"></div>
+        </section>
     </main>
 
     <footer>

@@ -3,6 +3,7 @@ import Recorrido360 from './modules/recorrido360.js';
 import MapaHistorico from './modules/mapaHistorico.js';
 import Encuesta from './modules/encuesta.js';
 import Ayuda from './modules/ayudas.js';
+import Incidencia from './modules/incidencias.js';
 
 //guia multilingue
 const guiasAvanzadas = [
@@ -89,6 +90,10 @@ document.addEventListener('DOMContentLoaded', () => {
         'ayuda': {
             id:'ayuda',
             keywords:['ayuda', 'help', 'ayuda', 'help', 'ayuda', 'help']
+        },
+        'form-incidencias': {
+            id:'form-incidencias',
+            keywords:['incidencia', 'incident', 'incidente', 'incidente', 'incidente', 'incidente']
         }
     };
 
@@ -184,6 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let mapaInstance = null;
     let guiaInstance = null;
     let ayudaInstance = null;
+    let incidenciaInstance = null;
 
     function mostrarSection(id) {
         console.log('Mostrando sección:', id);
@@ -230,6 +236,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             ayudaInstance.init();
         }
+
+        if (id === 'form-incidencias') {
+            if (!incidenciaInstance) {
+                incidenciaInstance = new Incidencia('form-incidencias');
+            }
+            incidenciaInstance.init();
+        }
     }
 
     function actualizarMenuActivo(idSection) {
@@ -240,7 +253,8 @@ document.addEventListener('DOMContentLoaded', () => {
             'recorridos': 'tours-link',
             'mapa': 'mapa-link',
             'encuesta': 'encuesta-link',
-            'ayuda': 'ayuda-link'
+            'ayuda': 'ayuda-link',
+            'form-incidencias': 'incidencias-link'
         };
 
         // Quitar clase active de todos los enlaces
@@ -287,6 +301,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('ayuda-link').addEventListener('click', (e) => {
         e.preventDefault();
         mostrarSection('ayuda');
+    });
+
+    document.getElementById('incidencias-link').addEventListener('click', (e) => {
+        e.preventDefault();
+        mostrarSection('form-incidencias');
     });
 
     // Inicializar otras clases (guía multilingüe, RA, educación)

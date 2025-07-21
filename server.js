@@ -110,6 +110,42 @@ app.get('/api/ayudas', async (req, res) => {
     }
 });
 
+app.post('/api/incidencias', async (req, res) => {
+  console.log("➡️ Datos recibidos en el backend:", req.body); // NUEVO
+
+  const { nombre, correo, tipo, descripcion, fecha } = req.body;
+
+  if (!tipo || !descripcion || !fecha) {
+    return res.status(400).json({ error: 'Datos incompletos: tipo, descripción y fecha son obligatorios.' });
+  }
+  if (typeof descripcion !== 'string' || descripcion.trim().length < 10) {
+    return res.status(400).json({ error: 'La descripción debe tener al menos 10 caracteres.' });
+  }
+
+  try {
+    const result = await pool.query(
+      `INSERT INTO incidencias (nombre, correo, tipo, descripcion, fecha) 
+       VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+      [nombre || null, correo || null, tipo, descripcion, fecha]
+    );
+    res.status(201).json({ message: 'Incidencia guardada', data: result.rows[0] });
+  } catch (error) {
+    console.error('❌ Error al guardar incidencia:', error);
+    res.status(500).json({ error: 'Error del servidor' });
+  }
+});
+
+
+app.get('/api/incidencias', async (req, res) => {
+    try {
+      const result = await pool.query('SELECT * FROM incidencia ORDER BY fecha DESC');
+      res.json(result.rows);
+    } catch (error) {
+      console.error('Error al obtener incidencias:', error);
+      res.status(500).json({ error: 'Error del servidor' });
+    }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);

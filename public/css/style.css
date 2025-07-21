@@ -296,6 +296,37 @@ background-color: #c0392b;
     border-color: var(--secondary-color);
 }
 
+.submenu {
+    position: relative;
+}
+
+.submenu > a {
+    cursor: pointer;
+}
+
+.submenu-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 0 0 5px 5px;
+    display: none;
+    flex-direction: column;
+    min-width: 200px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 999;
+}
+
+.submenu-links li {
+    margin: 0.3rem 0;
+}
+
+.submenu:hover .submenu-links {
+    display: flex;
+}
+
+
 /* Main */
 main {
     margin-top: 120px;
@@ -794,6 +825,99 @@ border: none;
 border-radius: 4px;
 cursor: pointer;
 }
+
+/* Incidencias */
+#form-incidencias {
+    max-width: 480px;
+    margin: 1rem auto;
+    background: #fff;
+    padding: 1.5rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 0.1);
+    font-family: Arial, sans-serif;
+    color: #222;
+  }
+  
+  #form-incidencias h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  #form-incidencias-form label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 600;
+    margin-top: 1rem;
+  }
+  
+  #form-incidencias-form input[type="text"],
+  #form-incidencias-form input[type="email"],
+  #form-incidencias-form select,
+  #form-incidencias-form textarea {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+  
+  #form-incidencias-form input[type="text"]:focus,
+  #form-incidencias-form input[type="email"]:focus,
+  #form-incidencias-form select:focus,
+  #form-incidencias-form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 3px #007bff;
+  }
+  
+  #form-incidencias-form textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  
+  #form-incidencias-form button {
+    margin-top: 1.5rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  
+  #form-incidencias-form button:hover,
+  #form-incidencias-form button:focus {
+    background-color: #0056b3;
+  }
+  
+  .mensaje-error {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 2px;
+  }
+  
+  #btn-limpiar-incidencia,
+  #btn-volver-incidencia {
+    background-color: #4d41f6;
+    color: white;
+    padding: 8px 16px;
+    margin-top: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  #btn-volver-incidencia {
+    margin-left: 10px;
+  }
+  
   
     
   
