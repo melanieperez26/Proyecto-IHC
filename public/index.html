@@ -182,39 +182,53 @@
         
         <section id="form-incidencias" class="module hidden" role="region" aria-label="Sección de formularios">
             <h1>Formulario de Incidencias</h1>
-
+            
+            <div id="feedback-incidencia" class="feedback" aria-live="polite"></div>
+          
             <form id="form-incidencias-form" novalidate>
-                <label for="form-incidencias-nombre">Nombre del usuario *</label>
-                <input type="text" id="form-incidencias-nombre" name="nombre" aria-required="true" aria-describedby="errorNombre" />
-                <div id="errorNombre" class="error" aria-live="polite"></div>
-
-                <label for="form-incidencias-correo">Correo electrónico *</label>
-                <input type="email" id="form-incidencias-correo" name="correo" aria-required="true" aria-describedby="errorCorreo" />
-                <div id="errorCorreo" class="error" aria-live="polite"></div>
-
-                <label for="form-incidencias-tipo">Tipo de incidencia *</label>
-                <select id="form-incidencias-tipo" name="tipo" aria-required="true" aria-describedby="errorTipo">
+              <label for="form-incidencias-nombre">Nombre del usuario (obligatorio)*</label>
+              <input type="text" id="form-incidencias-nombre" name="nombre" aria-required="true" aria-describedby="errorNombre" />
+              <div id="errorNombre" class="error" aria-live="polite"></div>
+          
+              <label for="form-incidencias-correo">Correo electrónico (obligatorio)</label>
+              <input type="email" id="form-incidencias-correo" name="correo" aria-required="true" aria-describedby="errorCorreo" />
+              <div id="errorCorreo" class="error" aria-live="polite"></div>
+          
+              <label for="form-incidencias-tipo">Tipo de incidencia (obligatorio)*</label>
+              <select id="form-incidencias-tipo" name="tipo" aria-required="true" aria-describedby="errorTipo">
                 <option value="">Seleccione una opción</option>
                 <option value="tecnica">Falla Técnica</option>
                 <option value="contenido">Error de Contenido</option>
                 <option value="acceso">Problemas de acceso</option>
                 <option value="otro">Otro</option>
-                </select>
-                <div id="errorTipo" class="error" aria-live="polite"></div>
-
-                <label for="form-incidencias-descripcion">Descripción de la incidencia *</label>
-                <textarea id="form-incidencias-descripcion" name="descripcion" rows="4" aria-required="true" aria-describedby="errorDescripcion" placeholder="Describe la incidencia con claridad..."></textarea></textarea>
-                <div id="errorDescripcion" class="error" aria-live="polite"></div>
-
-                <label for="form-incidencias-fecha">Fecha del incidente *</label>
-                <input type="date" id="form-incidencias-fecha" name="fecha" aria-required="true" aria-describedby="errorFecha" />
-                <div id="errorFecha" class="error" aria-live="polite"></div>
-
-                <button type="submit" aria-label="Enviar incidencia">Enviar incidencia</button>
+              </select>
+              <div id="errorTipo" class="error" aria-live="polite"></div>
+          
+              <label for="form-incidencias-descripcion">Descripción de la incidencia (obligatorio)*</label>
+              <textarea id="form-incidencias-descripcion" name="descripcion" rows="4" aria-required="true" aria-describedby="errorDescripcion" placeholder="Describe la incidencia con claridad..."></textarea>
+              <div id="errorDescripcion" class="error" aria-live="polite"></div>
+          
+              <label for="form-incidencias-fecha">Fecha del incidente (obligatorio)*</label>
+              <input type="date" id="form-incidencias-fecha" name="fecha" aria-required="true" aria-describedby="errorFecha" />
+              <div id="errorFecha" class="error" aria-live="polite"></div>
+          
+              <button type="submit" id="btn-enviar-incidencia" aria-label="Enviar incidencia">Enviar incidencia</button>
+              <button type="button" id="btn-cancelar-incidencia">Cancelar</button>
             </form>
-
-            <div id="resumen" class="summary" style="display:none;"></div>
-        </section>
+          
+            <!-- RESUMEN ESTRUCTURADO -->
+            <div id="resumen" class="summary hidden" role="region" aria-label="Resumen de incidencia">
+              <h2>✅ Incidencia Enviada</h2>
+              <p><strong>Nombre:</strong> <span id="res-nombre">(vacío)</span></p>
+              <p><strong>Correo:</strong> <span id="res-correo">(vacío)</span></p>
+              <p><strong>Tipo:</strong> <span id="res-tipo">(vacío)</span></p>
+              <p><strong>Descripción:</strong> <span id="res-descripcion">(vacío)</span></p>
+              <p><strong>Fecha:</strong> <span id="res-fecha">(vacío)</span></p>
+              <button type="button" id="btn-editar">Editar</button>
+              <!-- BOTÓN EXTRA -->
+            <button type="button" id="btn-volver-incidencia" class="hidden">Enviar otra incidencia</button>
+            </div>
+          </section>          
     </main>
 
     <footer>

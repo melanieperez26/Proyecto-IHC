@@ -901,9 +901,33 @@ cursor: pointer;
     font-size: 0.8em;
     margin-top: 2px;
   }
-  
+
+  .errorTipo {
+    color: crimson;
+    font-size: 0.9em;
+    margin-top: 0.2em;
+  }
+
+  .error {
+    color: crimson;
+    font-size: 0.9em;
+    margin-top: 0.2em;
+  }
+
+
   #btn-limpiar-incidencia,
   #btn-volver-incidencia {
+    background-color: #4d41f6;
+    color: white;
+    padding: 8px 16px;
+    margin-top: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  #btn-cancelar-incidencia {
     background-color: #4d41f6;
     color: white;
     padding: 8px 16px;

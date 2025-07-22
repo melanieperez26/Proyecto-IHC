@@ -235,13 +235,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 ayudaInstance = new Ayuda('ayuda-container');
             }
             ayudaInstance.init();
+
+            const form = document.getElementById('ayuda-form');
+            const resumen = document.getElementById('resumen-ayuda');
+            if (form && resumen) {
+                form.classList.remove('hidden');
+                resumen.classList.add('hidden');
+                form.reset(); // Limpia los campos por si acaso
+            }
         }
 
         if (id === 'form-incidencias') {
             if (!incidenciaInstance) {
                 incidenciaInstance = new Incidencia('form-incidencias');
             }
-            incidenciaInstance.init();
         }
     }
 
