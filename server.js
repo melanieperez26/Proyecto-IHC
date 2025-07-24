@@ -146,6 +146,29 @@ app.get('/api/incidencias', async (req, res) => {
     }
 });
 
+app.post('/api/contacto', async (req, res) => {
+  try {
+    const { nombre, email, asunto, mensaje } = req.body;
+
+    const query = `
+      INSERT INTO contacto (nombre, email, asunto, mensaje)
+      VALUES ($1, $2, $3, $4)
+    `;
+    await pool.query(query, [nombre, email, asunto, mensaje]);
+
+    res.status(200).json({ mensaje: 'Contacto enviado correctamente' });
+  } catch (error) {
+    console.error('Error en la ruta /api/contacto:', error);
+    res.status(500).json({ mensaje: 'Error al guardar el contacto' });
+  }
+});
+app.post('/api/contacto', async (req, res) => {
+  console.log("📩 Recibido contacto:", req.body);
+});
+
+
+
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);

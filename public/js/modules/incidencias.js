@@ -2,14 +2,68 @@ export default class Incidencia {
   constructor(containerId) {
     this.container = document.getElementById(containerId);
     this.form = this.container.querySelector('#form-incidencias-form');
-    this.feedback = this.container.querySelector('#feedback-incidencia'); // Agrega este div si aún no lo tienes
+    this.feedback = this.container.querySelector('#feedback-incidencia'); 
     this.resumen = this.container.querySelector('#resumen');
     this.btnEditar = this.container.querySelector('#btn-editar');
     this.btnVolver = this.container.querySelector('#btn-volver-incidencia');
     this._timeoutId = null;
+
+    this.estadoInicial = this.obtenerEstadoFormulario();
+
     this.init();
     this.initValidacionesEnTiempoReal();
     this.initAtajosTeclado();
+  }
+
+  obtenerEstadoFormulario() {
+    return {
+      nombre: this.form.nombre.value.trim(),
+      correo: this.form.correo.value.trim(),
+      tipo: this.form.tipo.value,
+      descripcion: this.form.descripcion.value.trim(),
+      fecha: this.form.fecha.value,
+    };
+  }
+
+  estaModificado() {
+    const actual = this.obtenerEstadoFormulario();
+    const inicial = this.estadoInicial;
+    return (
+      actual.nombre !== inicial.nombre ||
+      actual.correo !== inicial.correo ||
+      actual.tipo !== inicial.tipo ||
+      actual.descripcion !== inicial.descripcion ||
+      actual.fecha !== inicial.fecha
+    );
+  }
+
+  mostrarConfirmacion() {
+    return new Promise((resolve) => {
+      const modal = this.container.querySelector("#confirm-modal");
+      const btnYes = this.container.querySelector("#confirm-yes");
+      const btnNo = this.container.querySelector("#confirm-no");
+
+      modal.classList.remove("hidden");
+
+      const limpiar = () => {
+        btnYes.removeEventListener("click", onYes);
+        btnNo.removeEventListener("click", onNo);
+        modal.classList.add("hidden");
+      };
+
+      const onYes = () => {
+        limpiar();
+        resolve(true);
+      };
+
+      const onNo = () => {
+        limpiar();
+        resolve(false);
+      };
+
+      btnYes.addEventListener("click", onYes);
+      btnNo.addEventListener("click", onNo);
+    });
   }
 
   init() {
@@ -17,8 +71,6 @@ export default class Incidencia {
 
     this.form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      console.log("Formulario enviado");
-
 
       const nombre = this.form.nombre.value.trim();
       const correo = this.form.correo.value.trim();
@@ -26,7 +78,6 @@ export default class Incidencia {
       const descripcion = this.form.descripcion.value.trim();
       const fecha = this.form.fecha.value;
 
-      // Limpia errores
       this.container.querySelectorAll(".error").forEach(div => div.textContent = "");
 
       let errores = 0;
@@ -79,7 +130,6 @@ export default class Incidencia {
         const resultado = await res.json();
         const data = resultado.data;
 
-        // Mostrar resumen
         this.resumen.querySelector('#res-nombre').textContent = data.nombre || "(no proporcionado)";
         this.resumen.querySelector('#res-correo').textContent = data.correo || "(no proporcionado)";
         this.resumen.querySelector('#res-tipo').textContent = data.tipo;
@@ -92,29 +142,23 @@ export default class Incidencia {
 
         this.mostrarFeedback("✅ ¡Incidencia enviada correctamente!", false);
 
+        this.estadoInicial = this.obtenerEstadoFormulario();
+
       } catch (err) {
         console.error(err);
         this.mostrarFeedback("❌ Error al enviar la incidencia.", true);
       }
     });
 
-    // Botón cancelar
+    // Botón cancelar con confirmación modal
     const btnCancelar = this.container.querySelector("#btn-cancelar-incidencia");
     if (btnCancelar) {
-      btnCancelar.addEventListener("click", () => {
-        this.form.reset();
-
-        // Borra errores visuales
-        this.container.querySelectorAll(".error").forEach(div => div.textContent = "");
-
-        // Opcional: resetea colores de borde si implementas validaciones visuales
-        this.form.querySelectorAll("input, select, textarea").forEach(el => {
-          el.style.borderColor = "";
-        });
-
-        // Borra feedback general
-        const feedback = this.container.querySelector("#feedback-incidencia");
-        if (feedback) feedback.textContent = "";
+      btnCancelar.addEventListener("click", async () => {
+        if (this.estaModificado()) {
+          const confirmado = await this.mostrarConfirmacion();
+          if (!confirmado) return;
+        }
+        this.resetFormulario();
       });
     }
 
@@ -125,18 +169,20 @@ export default class Incidencia {
         this.resumen.classList.add("hidden");
         this.btnVolver.classList.add("hidden");
     
-        // Cambiar texto del botón a "Actualizar"
         const submitBtn = this.form.querySelector("#btn-enviar-incidencia");
         if (submitBtn) submitBtn.textContent = "Actualizar";
     
-        // También podrías guardar el ID para saber si es edición (opcional)
         this.form.dataset.editando = "true";
       });
     }    
 
-    // Botón volver limpio
+    // Botón volver con confirmación modal
     if (this.btnVolver) {
-      this.btnVolver.addEventListener("click", () => {
+      this.btnVolver.addEventListener("click", async () => {
+        if (this.estaModificado()) {
+          const confirmado = await this.mostrarConfirmacion();
+          if (!confirmado) return;
+        }
         this.resetFormulario();
         this.form.classList.remove("hidden");
         this.resumen.classList.add("hidden");
@@ -203,7 +249,6 @@ export default class Incidencia {
     });
   }
   
-
   mostrarFeedback(mensaje, esError) {
     this.feedback.textContent = mensaje;
     this.feedback.style.color = esError ? "crimson" : "green";
@@ -223,6 +268,7 @@ export default class Incidencia {
     this.form.querySelectorAll("input, textarea, select").forEach(el => el.style.borderColor = "");
     this.container.querySelectorAll(".error").forEach(div => div.textContent = "");
     this.mostrarFeedback("", false);
+    this.estadoInicial = this.obtenerEstadoFormulario();
   }
 
   initAtajosTeclado() {

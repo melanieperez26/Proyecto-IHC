@@ -4,6 +4,7 @@ import MapaHistorico from './modules/mapaHistorico.js';
 import Encuesta from './modules/encuesta.js';
 import Ayuda from './modules/ayudas.js';
 import Incidencia from './modules/incidencias.js';
+import Contacto from './modules/contactos.js';
 
 //guia multilingue
 const guiasAvanzadas = [
@@ -94,6 +95,10 @@ document.addEventListener('DOMContentLoaded', () => {
         'form-incidencias': {
             id:'form-incidencias',
             keywords:['incidencia', 'incident', 'incidente', 'incidente', 'incidente', 'incidente']
+        },
+        'contacto': {
+            id:'contacto',
+            keywords:['contacto', 'contact', 'contacto', 'contact', 'contacto', 'contacto']
         }
     };
 
@@ -190,6 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let guiaInstance = null;
     let ayudaInstance = null;
     let incidenciaInstance = null;
+    let contactoInstance = null;
 
     function mostrarSection(id) {
         console.log('Mostrando sección:', id);
@@ -250,6 +256,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 incidenciaInstance = new Incidencia('form-incidencias');
             }
         }
+
+        if (id === 'contacto') {
+            if (!contactoInstance) {
+                contactoInstance = new Contacto('form-contacto');
+            }
+        }
     }
 
     function actualizarMenuActivo(idSection) {
@@ -261,7 +273,8 @@ document.addEventListener('DOMContentLoaded', () => {
             'mapa': 'mapa-link',
             'encuesta': 'encuesta-link',
             'ayuda': 'ayuda-link',
-            'form-incidencias': 'incidencias-link'
+            'form-incidencias': 'incidencias-link',
+            'contacto': 'contacto-link'
         };
 
         // Quitar clase active de todos los enlaces
@@ -313,6 +326,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('incidencias-link').addEventListener('click', (e) => {
         e.preventDefault();
         mostrarSection('form-incidencias');
+    });
+
+    document.getElementById('contacto-link').addEventListener('click', (e) => {
+        e.preventDefault();
+        mostrarSection('contacto');
     });
 
     // Inicializar otras clases (guía multilingüe, RA, educación)
@@ -378,6 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const ra = new RealidadAumentada('ra-container');
     const encuesta = new Encuesta('encuesta-form');
     const ayuda = new Ayuda('ayuda-form');
+    const contacto = new Contacto('contacto');
 
     // Configuración de idiomas
     const idiomas = ['es', 'en'];
@@ -415,6 +434,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // 👇 Aquí actualizamos la ayuda
             if (ayudaInstance) {
                 ayudaInstance.init();
+            }
+
+            if (contactoInstance) {
+                contactoInstance.init();
             }
     
         });

@@ -46,7 +46,8 @@
                     <ul class="submenu-links">
                         <li><a href="#" id="encuesta-link" aria-label="Ir a la encuesta">ENCUESTA</a></li>
                         <li><a href="#" id="ayuda-link" aria-label="Ir a la ayuda">AYUDA</a></li>
-                      <li><a href="#" id="incidencias-link"> INCIDENTES</a></li>
+                        <li><a href="#" id="incidencias-link"> INCIDENTES</a></li>
+                        <li><a href="#" id="contacto-link"> CONTACTO</a></li>
                     </ul>
                   </li>                  
             </ul>
@@ -178,6 +179,15 @@
               <button id="btn-editar">Editar solicitud</button>
               <button id="btn-volver-limpio" type="button" class="hidden" onclick="mostrarFormularioLimpio()">Volver al formulario</button>
             </section>
+
+            <div id="confirm-modal-ayuda" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="confirm-title-ayuda">
+              <div class="modal-content">
+                <h2 id="confirm-title-ayuda">Confirmación</h2>
+                <p>¿Estás seguro que quieres salir sin guardar los cambios?</p>
+                <button id="confirm-yes-ayuda">Sí</button>
+                <button id="confirm-no-ayuda">No</button>
+              </div>
+            </div>            
         </section>  
         
         <section id="form-incidencias" class="module hidden" role="region" aria-label="Sección de formularios">
@@ -187,11 +197,11 @@
           
             <form id="form-incidencias-form" novalidate>
               <label for="form-incidencias-nombre">Nombre del usuario (obligatorio)*</label>
-              <input type="text" id="form-incidencias-nombre" name="nombre" aria-required="true" aria-describedby="errorNombre" />
+              <input type="text" id="form-incidencias-nombre" name="nombre" autocomplete="name" aria-required="true" aria-describedby="errorNombre" />
               <div id="errorNombre" class="error" aria-live="polite"></div>
           
-              <label for="form-incidencias-correo">Correo electrónico (obligatorio)</label>
-              <input type="email" id="form-incidencias-correo" name="correo" aria-required="true" aria-describedby="errorCorreo" />
+              <label for="form-incidencias-correo">Correo electrónico (obligatorio)*</label>
+              <input type="email" id="form-incidencias-correo" name="correo" autocomplete="email" aria-required="true" aria-describedby="errorCorreo" />
               <div id="errorCorreo" class="error" aria-live="polite"></div>
           
               <label for="form-incidencias-tipo">Tipo de incidencia (obligatorio)*</label>
@@ -228,7 +238,62 @@
               <!-- BOTÓN EXTRA -->
             <button type="button" id="btn-volver-incidencia" class="hidden">Enviar otra incidencia</button>
             </div>
-          </section>          
+
+            <div id="confirm-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+              <div class="modal-content">
+                <h2 id="confirm-title">Confirmación</h2>
+                <p>¿Estás seguro que quieres salir sin guardar los cambios?</p>
+                <button id="confirm-yes">Sí</button>
+                <button id="confirm-no">No</button>
+              </div>
+            </div>
+          </section> 
+          
+          <section id="contacto" class="module hidden" role="region" aria-label="Formulario de contacto">
+            <h2>Contáctanos</h2>
+          
+            <form id="form-contacto" novalidate>
+              <label for="nombre-contacto" aria-label="Nombre (obligatorio)*">Nombre (obligatorio)* <span aria-hidden="true">*</span>:</label>
+              <input type="text" id="nombre-contacto" name="nombre" required aria-required="true" placeholder="Tu nombre completo" autocomplete="name" />
+              <div id="error-nombre" class="error" aria-live="polite"></div>
+          
+              <label for="email-contacto" aria-label="Correo electrónico (obligatorio)*">Correo electrónico (obligatorio)* <span aria-hidden="true">*</span>:</label>
+              <input type="email" id="email-contacto" name="email" required aria-required="true" placeholder="tu@correo.com" autocomplete="email" />
+              <div id="error-email" class="error" aria-live="polite"></div>
+          
+              <label for="asunto-contacto" aria-label="Asunto (obligatorio)*">Asunto (obligatorio)* <span aria-hidden="true">*</span>:</label>
+              <input type="text" id="asunto-contacto" name="asunto" required aria-required="true" placeholder="Motivo de contacto" />
+              <div id="error-asunto" class="error" aria-live="polite"></div>
+          
+              <label for="mensaje-contacto" aria-label="Mensaje (obligatorio)*">Mensaje (obligatorio)* <span aria-hidden="true">*</span>:</label>
+              <textarea id="mensaje-contacto" name="mensaje" required aria-required="true" minlength="10" placeholder="Escribe tu mensaje aquí..." rows="5"></textarea>
+              <div id="error-mensaje" class="error" aria-live="polite"></div>
+          
+              <button type="submit">Enviar</button>
+              <button type="button" id="btn-cancelar-contacto">Cancelar</button>
+            </form>
+            <div id="resumen-contacto" class="summary hidden" role="region" aria-label="Resumen de contacto">
+              <h2>✅ Contacto Enviado</h2>
+              <p><strong>Nombre:</strong> <span id="res-nombre">(vacío)</span></p>
+              <p><strong>Correo:</strong> <span id="res-correo">(vacío)</span></p>
+              <p><strong>Asunto:</strong> <span id="res-asunto">(vacío)</span></p>
+              <p><strong>Mensaje:</strong> <span id="res-mensaje">(vacío)</span></p>
+              <button type="button" id="btn-editar-contacto">Editar</button>
+              <button type="button" id="btn-volver-contacto" class="hidden">Enviar otra consulta</button>
+            </div>
+          
+            <div id="contacto-feedback" role="alert" aria-live="polite"></div>
+
+            <div id="confirm-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+              <div class="modal-content">
+                <h2 id="confirm-title">Confirmación</h2>
+                <p>¿Estás seguro que quieres salir sin guardar los cambios?</p>
+                <button id="confirm-yes-contacto">Sí</button>
+                <button id="confirm-no-contacto">No</button>
+              </div>
+            </div>
+          </section>
+          
     </main>
 
     <footer>
