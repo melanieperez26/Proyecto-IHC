@@ -442,6 +442,24 @@ document.addEventListener('DOMContentLoaded', () => {
     
         });
     });
+
+    const toggleButton = document.querySelector('.menu-toggle');
+    const menu = document.querySelector('.nav-links');
+  
+    toggleButton.addEventListener('click', () => {
+      const isActive = menu.classList.toggle('active');
+      toggleButton.setAttribute('aria-expanded', isActive);
+    });
+  
+    const submenus = document.querySelectorAll('.submenu > a');
+    submenus.forEach(submenuLink => {
+      submenuLink.addEventListener('click', e => {
+        e.preventDefault();
+        const parentLi = submenuLink.parentElement;
+        parentLi.classList.toggle('active');
+      });
+    });
+  
     
 
     // Mostrar inicio por defecto

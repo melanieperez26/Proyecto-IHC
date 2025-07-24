@@ -385,6 +385,27 @@ section {
     display: block;
 }
 
+.iframe-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.iframe-container {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .iframe-container {
+    height: 60vh; /* o 70vh si prefieres más grande */
+  }
+}
+
+
 /* Estilos para los puntos de interés */
 .hotspot-info {
     position: fixed;
@@ -532,54 +553,143 @@ section {
   }
   
 
-/* Responsive Design */
+/* ========================================== */
+/* MENÚ RESPONSIVO - IMPLEMENTACIÓN COMPLETA  */
+/* ========================================== */
+  /* Ocultar el botón hamburguesa por defecto */
+  #menu-toggle {
+    display: none;
+  }
 @media (max-width: 768px) {
-    header {
-        padding: 1rem;
-    }
-    
-    .logo {
-        font-size: 1.8rem;
-    }
-    
-    .nav-links {
-        flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
-    }
-    
-    main {
-        margin-top: 250px;
-    }
+  /* 1. Ajustes generales para móvil */
+  body {
+    padding-top: 60px; /* Reduce espacio para header más compacto */
+  }
+  
+  /* 2. Reorganización del header */
+  .header-top {
+    flex-wrap: wrap;
+    padding: 0 1rem;
+    position: relative;
+  }
+  
+  .logo {
+    font-size: 1.8rem;
+    order: 1;
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+  
+  /* 3. Botón hamburguesa */
 
-    .language-selector {
-        top: 10px;
-        right: 10px;
-    }
-}
+/* Mostrarlo solo en pantallas pequeñas (móviles) */
 
-@media (max-width: 500px) {
-    .language-selector {
-        position: static;
-        margin: 10px auto;
-        justify-content: center;
-    }
-    
-    main {
-        margin-top: 300px;
-    }
-}
+  #menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1000;
+  }
 
-/* busqueda */
-@media (max-width: 768px) {
-    .search-options {
-        grid-template-columns: 1fr;
-    }
-    
-    .search-expanded {
-        width: 95vw;
-        padding: 1rem;
-    }
+  
+  /* 4. Contenedor de utilidades (búsqueda/idioma) */
+  .header-utils {
+    order: 3;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  /* 5. Menú principal - versión móvil */
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--primary-color);
+    padding: 1rem;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    z-index: 999;
+  }
+  
+  .nav-links.active {
+    display: flex;
+  }
+  
+  .nav-links li {
+    width: 100%;
+    margin: 0.3rem 0;
+  }
+  
+  .nav-links a {
+    display: block;
+    padding: 0.8rem;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  /* 6. Submenús para móvil */
+  .submenu > a::after {
+    content: '+';
+    float: right;
+    transition: transform 0.3s;
+  }
+  
+  .submenu.active > a::after {
+    content: '-';
+  }
+  
+  .submenu-links {
+    position: static;
+    display: none;
+    padding: 0;
+    box-shadow: none;
+    margin-top: 0.5rem;
+    background: rgba(0,0,0,0.1);
+    border-radius: 4px;
+  }
+  
+  .submenu.active .submenu-links {
+    display: flex;
+  }
+  
+  /* 7. Selector de idiomas */
+  .language-selector {
+    position: static;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+  
+  .language-button {
+    color: white;
+    border-color: rgba(255,255,255,0.3);
+    padding: 0.3rem 0.6rem;
+  }
+  
+  /* 8. Búsqueda */
+  .search-container {
+    width: 100%;
+    order: 4;
+    margin-top: 1rem;
+  }
+  
+  .search-expanded {
+    position: static;
+    width: 100%;
+  }
+  
+  /* 9. Ajuste del main */
+  main {
+    margin-top: 20px;
+  }
 }
 
 /* encuesta */
@@ -1064,3 +1174,167 @@ cursor: pointer;
     background-color: #f44336;
     color: white;
   }
+
+  /* filtro del mapa */
+  /* Estilos base del mapa */
+#mapa.module {
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Títulos */
+#mapa-title {
+  color: var(--primary-color);
+  font-size: clamp(1.4rem, 4vw, 1.8rem); /* Tamaño responsive */
+  margin-bottom: 0.3rem;
+  text-align: center;
+}
+
+#mapa-subtitle {
+  color: var(--text-color);
+  font-size: clamp(0.9rem, 3vw, 1rem); /* Tamaño responsive */
+  text-align: center;
+  margin-bottom: 1.2rem;
+  opacity: 0.8;
+  line-height: 1.4;
+}
+
+/* Contenedor principal (flex en desktop, columna en mobile) */
+#mapa > div {
+  display: flex;
+  flex-direction: column; /* Mobile first */
+  gap: 1.2rem;
+}
+
+/* Sidebar - Se convierte en acordeón en mobile */
+#sidebar {
+  width: 100%;
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+/* Filtro - Optimizado para touch */
+#filtro-container {
+  margin-bottom: 1.2rem;
+}
+
+#filtro-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  font-size: clamp(0.9rem, 3vw, 0.95rem);
+}
+
+#filtro-tipo {
+  width: 100%;
+  padding: 0.7rem; /* Más grande para touch */
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem; /* Tamaño legible en móviles */
+  background-color: white;
+  -webkit-appearance: none; /* Elimina estilos por defecto en iOS */
+  -moz-appearance: none;
+}
+
+/* Panel de lugares - Scroll táctil */
+#mapa-sidebar {
+  max-height: 300px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+  border: 1px solid #eaeaea;
+  border-radius: 6px;
+  padding: 0.8rem;
+  background: white;
+}
+
+/* Items interactivos para touch */
+.lugar-item {
+  padding: 0.8rem;
+  margin-bottom: 0.6rem;
+  background: #f5f5f5;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  touch-action: manipulation; /* Mejora la respuesta táctil */
+}
+
+.lugar-item:active {
+  transform: scale(0.98); /* Feedback táctil */
+}
+
+/* Mapa principal - Altura adaptable */
+#mapa-container {
+  width: 100%;
+  height: 60vh; /* Usa altura viewport en móviles */
+  min-height: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* ---------------------------- */
+/* MEDIA QUERIES PARA DESKTOP */
+/* ---------------------------- */
+@media (min-width: 768px) {
+  #mapa.module {
+    padding: 1.5rem;
+  }
+  
+  #mapa > div {
+    flex-direction: row; /* Sidebar + mapa lado a lado */
+  }
+  
+  #sidebar {
+    width: 280px;
+    max-height: 600px;
+  }
+  
+  #mapa-container {
+    height: 600px;
+    flex: 1;
+  }
+  
+  #mapa-sidebar {
+    max-height: none;
+    flex: 1;
+  }
+}
+
+/* ---------------------------- */
+/* MEJORAS ESPECÍFICAS PARA MÓVIL */
+/* ---------------------------- */
+@media (max-width: 767px) {
+  /* Sidebar colapsable */
+  #sidebar.collapsed #mapa-sidebar {
+    display: none;
+  }
+  
+  /* Botón para expandir/colapsar */
+  .toggle-sidebar {
+    display: block;
+    width: 100%;
+    padding: 0.6rem;
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  /* Icono animado */
+  .toggle-icon {
+    display: inline-block;
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+  }
+  
+  #sidebar.collapsed .toggle-icon {
+    transform: rotate(180deg);
+  }
+}

@@ -22,6 +22,7 @@
             <h1 class="logo" id="logo-text">CULTURA MANTA</h1>
         </div>
         <nav class="main-nav">
+            <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-principal">☰</button>
             <div class="search-container" role="search" aria-label="Barra de búsqueda">
                 <div class="search-toggle" id="search-toggle" aria-label="Abrir barra de búsqueda">
                     <span>Buscar🔍</span>
@@ -74,11 +75,13 @@
             <h2 id="tours-title">Recorridos 360°</h2>
             <p>Explora libremente las salas virtuales dedicadas a la historia, cultura y patrimonio de Manta.</p>
             <p>Para comenzar el recorrido por favor selecciona "Accept All".</p>
+            <p>Si el recorrido no se inicia, haz clic <a href="https://www.artsteps.com/view/6873ecd593af61325f2cd502" target="_blank" rel="noopener noreferrer">aquí para abrirlo en una nueva ventana</a>.</p>
             <div id="recorrido-container" class="recorrido-container">
                 <div class="iframe-container">
                     <iframe 
                       src="https://www.artsteps.com/embed/6873ecd593af61325f2cd502/560/315"
                       frameborder="0" 
+                      allow="fullscreen"
                       allowfullscreen 
                       title="Recorrido virtual por el patrimonio de Manta">
                     </iframe>
@@ -89,9 +92,23 @@
         <section id="mapa" class="module hidden" role="region" aria-label="Mapa Histórico Interactivo">
             <h2 id="mapa-title">Mapa Histórico Interactivo</h2>
             <h3 id="mapa-subtitle">En este mapa se encuentran marcados los lugares turisticos, históricos y culturales de Manta</h3>
-            <div style="display: flex; gap: 1rem;">
-                <div id="mapa-sidebar" role="region" aria-label="Panel de lugares turisticos" style="width: 300px; overflow-y: auto;"></div>
-                <div id="mapa-container" style="flex: 1; height: 600px;" role="region" aria-label="Mapa turistico de Manta"></div>
+            <div style="display: flex; gap: 1rem;"> 
+              <div id="sidebar" style="display: flex; flex-direction: column; width: 300px;">
+                <div id="filtro-container" style="margin-bottom: 1rem;">
+                  <label for="filtro-tipo">Filtrar por tipo de lugar:</label><br />
+                  <select id="filtro-tipo" style="width: 100%; padding: 0.3rem;">
+                    <option value="todos">Todos</option>
+                    <option value="turistico">Turistico</option>
+                    <option value="museo">Museo</option>
+                    <option value="monumento">Monumento</option>
+                    <option value="parque">Parque</option>
+                    <option value="comercial">Comercial</option>
+                  </select>
+                </div>
+                <div id="mapa-sidebar" role="region" aria-label="Panel de lugares turisticos" style="flex: 1; overflow-y: auto; border: 1px solid #ccc; padding: 0.5rem;">
+                </div>
+              </div>
+              <div id="mapa-container" style="flex: 1; height: 600px;" role="region" aria-label="Mapa turistico de Manta"></div>
             </div>
         </section>
 
